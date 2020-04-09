@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style>
+  #regformdiv{
+    position: relative;
+    margin-left: 200px;
+    margin-right: 200px;
+    background-color:rgb(208, 232, 243);
+    padding: 10px 20px 20px 20px;
+  }
+ 
+</style>
+  </head>
+  <body>
+    
+    <div id="regformdiv">
+      
+      
+    <h1><%= title %></h1>
+    <form id="regform" method="POST" class="primary" action="/">
+     
+      <div class="form-group col-lg-6">
+        <label for="Name">Name</label>
+        <input type="text" class="form-control" name="name" placeholder="Name">
+      </div>
+    
+      <div class="form-group col-lg-6">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" name="email" placeholder="Email">
+      </div>
+      <div class="form-group col-lg-6">
+        <label for="email">Employee Type</label>
+        <select class="form-control" name="emptype">
+          <option value="Hourly">Hourly</option>
+          <option value="Fixed">Fixed</option>
+        </select>
+        
+      </div>
+      <div class="form-group col-lg-6">
+        <label for="Hourly Rate">Hourly Rate</label>
+        <input type="text" class="form-control" name="hourlyrate" placeholder="Hourly Rate">
+      </div>
+      <div class="form-group col-lg-12">
+        <label for="TotalHours">Total Hours</label>
+        <input type="text" class="form-control" name="totalhours" placeholder="TotalHours">
+      </div>
+      <center><button type="submit" class="btn btn-primary">Submit</button></center></form></div>
+      <br><br>
+      <div id="first">
+        <h1>Filter Records</h1>
+        <form id="regform1" method="POST" class="primary" action="/search/">
+         
+          <div class="form-group col-lg-3">
+            <label for="Name">By Name</label>
+            <input type="text" class="form-control" name="fltrname" placeholder="Enter Name">
+          </div>
+        
+          <div class="form-group col-lg-3">
+            <label for="email">By Email</label>
+            <input type="text" class="form-control" name="fltremail" placeholder="Enter Email">
+          </div>
+          <div class="form-group col-lg-3">
+            <label for="email">By Employee Type</label>
+            <select class="form-control" name="fltremptype">
+              <option value="Hourly">Hourly</option>
+              <option value="Fixed">Fixed</option>
+            </select>
+            
+          </div>
+         <br>
+          <button type="submit" class="btn btn-primary">Filter</button>
+        
+      </div>
+        <br>
+      
+      <div class="output"></div>
+    </form>
+    
+  
+  
+    <br>
+    <br>
+    <h1>Database</h1>
+    <br>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Emp type</th>
+          <th>Hourly Rate</th>
+          <th>Total Hours</th>
+          <th>Total amount</th>
+          <th>Action</th>
+        </tr>
+        <%  if(records.length>0){ %>
+        <% records.forEach(function(row){ %>
+        <tr>
+          <td><%= row.name %></td>
+          <td><%= row.email %></td>
+          <td><%= row.etype %></td>
+          <td><%= row.hourlyrate %></td>
+          <td><%= row.totalhours %></td>
+          <td><%= row.totalamount %></td>
+          <td><a class="btn btn-primary btn-sm" href="/edit/<%= row._id %>"><i class="fa fa-edit"></i></a>
+            <a class="btn btn-danger btn-sm" href="/delete/<%= row._id %>"><i class="fa fa-trash"></i></a>
+          </td>
+        </tr>
+        <% })}else{ %>
+          <tr>
+            <td colspan="6">No Record Found</td>
+            
+          </tr>
+          <% } %>
+      </thead>
+    </table>
+    
+   
+   
+    
+  </body>
+</html>
